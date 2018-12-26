@@ -4,6 +4,9 @@ buildscript {
     }
     repositories {
         mavenCentral()
+        maven { url "https://repo.spring.io/milestone" }
+        maven { url "http://93.180.54.196:8080/repository/snapshots" }
+        maven { url "http://93.180.54.196:8080/repository/releases" }
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
@@ -11,28 +14,56 @@ buildscript {
 }
 
 apply plugin: 'java'
+apply plugin: 'maven'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
-group = 'com.github.mujum'
-version = '0.0.2-SNAPSHOT'
+group = 'com.github.tubus'
+version = '0.0.2'
 sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()
     maven { url "https://repo.spring.io/milestone" }
+    maven { url "http://93.180.54.196:8080/repository/snapshots" }
+    maven { url "http://93.180.54.196:8080/repository/releases" }
 }
 
 ext['springCloudVersion'] = 'Greenwich.RC2'
 
 dependencies {
     implementation('org.springframework.cloud:spring-cloud-config-server')
+
+    implementation('com.github.tubus:referencies-java-common:1.1-SNAPSHOT')
+
     testImplementation('org.springframework.boot:spring-boot-starter-test')
 }
 
 dependencyManagement {
     imports {
         mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
+}
+
+uploadArchives {
+    dependsOn 'clean'
+    dependsOn 'build'
+    tasks.findByName('build').mustRunAfter 'clean'
+    repositories {
+        mavenDeployer {
+            addFilter('jar') { artifact, file ->
+                println "Uploadling: ${artifact}, ${file}"
+                return true
+            }
+            repository(
+                    url: "${archivaUrl}/repository/releases") {
+                authentication(userName: archivaUsername, password: archivaPassword)
+            }
+            snapshotRepository(
+                    url: "${archivaUrl}/repository/snapshots") {
+                authentication(userName: archivaUsername, password: archivaPassword)
+            }
+        }
     }
 }

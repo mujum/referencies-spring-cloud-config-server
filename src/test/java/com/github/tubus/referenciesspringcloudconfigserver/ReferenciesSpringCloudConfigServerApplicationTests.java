@@ -1,4 +1,4 @@
-package com.github.mujum.referenciesspringcloudconfigserver;
+package com.github.tubus.referenciesspringcloudconfigserver;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
