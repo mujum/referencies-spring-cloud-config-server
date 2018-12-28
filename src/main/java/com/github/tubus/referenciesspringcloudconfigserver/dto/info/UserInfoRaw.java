@@ -2,15 +2,13 @@ package com.github.tubus.referenciesspringcloudconfigserver.dto.info;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.time.LocalDateTime;
 
-@ApiModel(description = "Информация о пользователе")
-public class UserInfoDTO {
+public class UserInfoRaw {
 
-    public UserInfoDTO() {
+    public UserInfoRaw() {
     }
 
     @ApiModelProperty("id пользователя")
@@ -23,20 +21,35 @@ public class UserInfoDTO {
     private long phone;
 
     @ApiModelProperty("Компания или группа пользователя")
-    private int company;
+    private int company_id;
 
     @ApiModelProperty("Номер телефона пользователя")
-    private String number;
+    private String phone_number;
 
     @ApiModelProperty("Когда был заведён пользователь")
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
-    private LocalDateTime time;
+    private LocalDateTime timestamp_;
 
     @ApiModelProperty("Описание пользователя")
     private String description;
 
     @ApiModelProperty("Полезная информация о пользователе")
     private String payload;
+
+    public UserInfoDTO createDTO() {
+
+        UserInfoDTO result = new UserInfoDTO();
+        result.setId            (this.id);
+        result.setName          (this.name);
+        result.setPhone         (this.phone);
+        result.setCompany       (this.company_id);
+        result.setNumber        (this.phone_number);
+        result.setTime          (this.timestamp_);
+        result.setDescription   (this.description);
+        result.setPayload       (this.payload);
+
+        return result;
+    }
 
     public long getId() {
         return id;
@@ -62,28 +75,28 @@ public class UserInfoDTO {
         this.phone = phone;
     }
 
-    public int getCompany() {
-        return company;
+    public int getCompany_id() {
+        return company_id;
     }
 
-    public void setCompany(int company) {
-        this.company = company;
+    public void setCompany_id(int company_id) {
+        this.company_id = company_id;
     }
 
-    public String getNumber() {
-        return number;
+    public String getPhone_number() {
+        return phone_number;
     }
 
-    public void setNumber(String number) {
-        this.number = number;
+    public void setPhone_number(String phone_number) {
+        this.phone_number = phone_number;
     }
 
-    public LocalDateTime getTime() {
-        return time;
+    public LocalDateTime getTimestamp_() {
+        return timestamp_;
     }
 
-    public void setTime(LocalDateTime time) {
-        this.time = time;
+    public void setTimestamp_(LocalDateTime timestamp_) {
+        this.timestamp_ = timestamp_;
     }
 
     public String getDescription() {

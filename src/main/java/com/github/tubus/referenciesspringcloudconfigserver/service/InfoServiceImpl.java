@@ -2,18 +2,23 @@ package com.github.tubus.referenciesspringcloudconfigserver.service;
 
 import com.github.tubus.referenciesspringcloudconfigserver.dto.InfoResponse;
 import com.github.tubus.referenciesspringcloudconfigserver.dto.info.UserInfoDTO;
+import com.github.tubus.referenciesspringcloudconfigserver.dto.info.UserInfoRaw;
 import com.github.tubus.referenciesspringcloudconfigserver.service.interfaces.InfoService;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.DataAccessException;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.PreparedStatementCallback;
+import org.springframework.jdbc.core.*;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.time.ZoneOffset;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class InfoServiceImpl implements InfoService {
@@ -32,6 +37,11 @@ public class InfoServiceImpl implements InfoService {
     @Override
     public void createUserInfo(UserInfoDTO userInfoDTO) throws Exception {
         createUserInfoInDb(userInfoDTO);
+    }
+
+    @Override
+    public List<UserInfoDTO> getAllUsersInfo() {
+        return getAllUsersFromDataBase();
     }
 
     private void createUserInfoInDb(final UserInfoDTO userInfoDTO) throws Exception {
@@ -63,5 +73,22 @@ public class InfoServiceImpl implements InfoService {
                 return ps.execute();
             }
         });
+    }
+
+    List<UserInfoDTO> getAllUsersFromDataBase() {
+
+        String sql = "SELECT *" +
+            "FROM userinfo;";
+
+        List<UserInfoRaw> rawResult = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(UserInfoRaw.class));
+        if (rawResult == null) {
+            rawResult = Collections.emptyList();
+        }
+
+        return mapRawToDTO(rawResult);
+    }
+
+    List<UserInfoDTO> mapRawToDTO(List<UserInfoRaw> raw) {
+        return raw.stream().map(UserInfoRaw::createDTO).collect(Collectors.toList());
     }
 }

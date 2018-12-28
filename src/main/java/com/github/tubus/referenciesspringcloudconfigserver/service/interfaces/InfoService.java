@@ -2,6 +2,7 @@ package com.github.tubus.referenciesspringcloudconfigserver.service.interfaces;
 
 import com.github.tubus.referenciesspringcloudconfigserver.dto.InfoResponse;
 import com.github.tubus.referenciesspringcloudconfigserver.dto.info.UserInfoDTO;
+import java.util.List;
 
 /**
  * @author mujum
@@ -24,4 +25,11 @@ public interface InfoService {
      * @throws Exception - ошибка, возникшая при создании пользователя
      */
     void createUserInfo(UserInfoDTO userInfoDTO) throws Exception;
+
+    /**
+     * Получение списка пользователей
+     *
+     * @return - List<UserInfoDTO> список пользователей
+     */
+    List<UserInfoDTO> getAllUsersInfo();
 }
