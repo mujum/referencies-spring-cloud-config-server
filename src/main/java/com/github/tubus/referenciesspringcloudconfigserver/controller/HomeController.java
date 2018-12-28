@@ -1,6 +1,7 @@
 package com.github.tubus.referenciesspringcloudconfigserver.controller;
 
 import com.github.tubus.referenciesspringcloudconfigserver.service.interfaces.InfoService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,11 +20,13 @@ public class HomeController {
     }
 
     @GetMapping("/")
+    @ApiOperation("Welcome message")
     public ResponseEntity<String> home() {
         return new ResponseEntity<>("Welcome to config server", HttpStatus.OK);
     }
 
     @GetMapping("/info")
+    @ApiOperation("general info")
     public ResponseEntity<InfoResponse> info() {
         InfoResponse response = infoService.getInfo();
         return new ResponseEntity(response, HttpStatus.OK);

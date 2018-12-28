@@ -1,50 +1,38 @@
 package com.github.tubus.referenciesspringcloudconfigserver.dto.info;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import java.time.LocalDateTime;
 
+@ApiModel(description = "Информация о пользователе")
 public class UserInfoDTO {
 
     public UserInfoDTO() {
     }
 
-    /**
-     * id пользователя
-     */
+    @ApiModelProperty("id пользователя")
     private long id;
 
-    /**
-     *  имя пользователя
-     */
+    @ApiModelProperty("имя пользователя")
     private String name;
 
-    /**
-     * Сотовый оператор пользователя
-     */
+    @ApiModelProperty("Сотовый оператор пользователя")
     private long phone;
 
-    /**
-     * Компания или группа пользователя
-     */
+    @ApiModelProperty("Компания или группа пользователя")
     private int company;
 
-    /**
-     * Номер телефона пользователя
-     */
+    @ApiModelProperty("Номер телефона пользователя")
     private String number;
 
-    /**
-     * Когда был заведён пользователь
-     */
+    @ApiModelProperty("Когда был заведён пользователь")
     private LocalDateTime time;
 
-    /**
-     * Описание пользователя
-     */
+    @ApiModelProperty("Описание пользователя")
     private String description;
 
-    /**
-     * Полезная информация о пользователе
-     */
+    @ApiModelProperty("Полезная информация о пользователе")
     private String payload;
 
     public long getId() {

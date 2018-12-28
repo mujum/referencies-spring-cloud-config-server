@@ -2,6 +2,8 @@ package com.github.tubus.referenciesspringcloudconfigserver.controller;
 
 import com.github.tubus.referenciesspringcloudconfigserver.dto.info.UserInfoDTO;
 import com.github.tubus.referenciesspringcloudconfigserver.service.InfoServiceImpl;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import javax.validation.constraints.NotNull;
 
 @Controller
+@Api(description = "Info Controller")
 public class InfoController {
 
     private InfoServiceImpl infoService;
@@ -22,6 +25,7 @@ public class InfoController {
     }
 
     @PostMapping("/info/create/user")
+    @ApiOperation("creating of the new user")
     public ResponseEntity<String> createUserInfo(
         @RequestBody @NotNull UserInfoDTO userInfoDTO
     ) {
