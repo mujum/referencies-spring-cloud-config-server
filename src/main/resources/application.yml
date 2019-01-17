@@ -9,6 +9,9 @@ server:
 spring:
   application:
     name: RSCCS
+  cloud:
+    config:
+      server.git.uri: "file://disk/learnspace/_tmp/config-repo"
   databases:
     postgres:
       infodb:

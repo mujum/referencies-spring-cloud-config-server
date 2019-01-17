@@ -2,11 +2,13 @@ package com.github.tubus.referenciesspringcloudconfigserver;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.config.server.EnableConfigServer;
 import org.springframework.context.ApplicationContext;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
 @EnableSwagger2
+@EnableConfigServer
 public class ReferenciesSpringCloudConfigServerApplication {
 
     public static void main(String[] args) {

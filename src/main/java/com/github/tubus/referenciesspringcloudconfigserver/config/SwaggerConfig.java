@@ -22,7 +22,7 @@ public class SwaggerConfig {
             .apis(RequestHandlerSelectors.any())
             .apis(Predicates.not(RequestHandlerSelectors.basePackage("org.springframework.boot")))
             .apis(Predicates.not(RequestHandlerSelectors.basePackage("org.springframework.cloud")))
-            .apis(Predicates.not(RequestHandlerSelectors.basePackage("org.springframework.data.rest.webmvc")))
+            .apis(Predicates.not(RequestHandlerSelectors.basePackage("org.springframework.data.RestConfiguration.webmvc")))
             .paths(PathSelectors.any())
             .build()
             .apiInfo(apiInfo());
